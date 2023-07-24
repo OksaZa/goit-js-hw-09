@@ -25,10 +25,9 @@ function handleDateSelection(selectedDate) {
   const currentDateTime = new Date();
   if (selectedDate <= currentDateTime) {
     Notiflix.Notify.warning('Please choose a date in the future');
-    startBtn.disabled = true;
-  } else {
-    startBtn.disabled = false;
-  }
+    return;
+  } 
+  startBtn.disabled = false;
 }
 
 startBtn.addEventListener('click', () => {
@@ -37,6 +36,9 @@ startBtn.addEventListener('click', () => {
 });
 
 function startCountdown(selectedDate) {
+  inputDate.disabled = true;
+  startBtn.disabled = true;
+
   const timerInterval = setInterval(() => {
     const currentTime = new Date().getTime();
     const timeDifference = selectedDate - currentTime;
@@ -45,6 +47,7 @@ function startCountdown(selectedDate) {
     hoursEL.textContent = addLeadingZero(date.hours);
     minutesEl.textContent = addLeadingZero(date.minutes);
     secondsEl.textContent = addLeadingZero(date.seconds);
+
     if (timeDifference <= 0) {
       dayEl.textContent = '00';
       hoursEL.textContent = '00';
@@ -52,6 +55,10 @@ function startCountdown(selectedDate) {
       secondsEl.textContent = '00';
       clearInterval(timerInterval);
       Notiflix.Notify.success("Countdown finished!");
+
+      inputDate.disabled = false;
+      startBtn.disabled = false;
+
     } else {
       convertMs(timeDifference);
     }

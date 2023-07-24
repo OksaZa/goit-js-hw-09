@@ -11,6 +11,11 @@ function onSubmit(e) {
     const position = i;
     const promiseDelay = parseInt(delay.value) + (i - 1) * parseInt(step.value);
 
+    if (parseInt(delay.value) < 0 || parseInt(step.value) < 0 || parseInt(amount.value) <= 0) {
+    Notiflix.Notify.failure('Please enter positive values for delay, step, and amount.');
+    return;
+    }
+
     createPromise(position, promiseDelay)
       .then(({ position, delay }) => {
         Notiflix.Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
