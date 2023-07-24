@@ -14,7 +14,6 @@ flatpickr("#datetime-picker", {
 
 const inputDate = document.querySelector("#datetime-picker");
 const startBtn = document.querySelector("[data-start]");
-const resetBtn = document.querySelector("[data-reset]");
 const dayEl = document.querySelector("[data-days]");
 const hoursEL = document.querySelector("[data-hours]");
 const minutesEl = document.querySelector("[data-minutes]");
@@ -65,17 +64,6 @@ function startCountdown(selectedDate) {
     }
   }, 1000);
 }
-
-resetBtn.addEventListener('click', () => {
-  clearInterval(timerInterval);
-  dayEl.textContent = '00';
-  hoursEL.textContent = '00';
-  minutesEl.textContent = '00';
-  secondsEl.textContent = '00';
-  inputDate.value = '';
-  inputDate.disabled = false;
-  startBtn.disabled = false;
-});
 
 function addLeadingZero(value) {
   return value.toString().padStart(2, '0');
